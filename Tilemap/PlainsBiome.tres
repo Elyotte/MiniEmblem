@@ -1,0 +1,45 @@
+[gd_resource type="TileSet" format=3 uid="uid://c06oxybk4bruu"]
+
+[ext_resource type="Texture2D" uid="uid://cpsb5mx02ly83" path="res://Textures/mapPack_tilesheet_2X.png" id="1_x4gev"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhh3x"]
+texture = ExtResource("1_x4gev")
+texture_region_size = Vector2i(128, 128)
+6:0/0 = 0
+6:0/0/custom_data_0 = 1
+7:0/0 = 0
+7:0/0/custom_data_0 = 1
+8:0/0 = 0
+8:0/0/custom_data_0 = 1
+9:0/0 = 0
+9:0/0/custom_data_0 = 1
+5:1/0 = 0
+5:1/0/custom_data_0 = 1
+6:1/0 = 0
+6:1/0/custom_data_0 = 1
+7:1/0 = 0
+7:1/0/custom_data_0 = 1
+8:1/0 = 0
+8:1/0/custom_data_0 = 1
+9:1/0 = 0
+9:1/0/custom_data_0 = 1
+5:2/0 = 0
+5:2/0/custom_data_0 = 1
+6:2/0 = 0
+6:2/0/custom_data_0 = 1
+7:2/0 = 0
+7:2/0/custom_data_0 = 1
+5:3/0 = 0
+5:3/0/custom_data_0 = 1
+6:3/0 = 0
+6:3/0/custom_data_0 = 1
+7:3/0 = 0
+7:3/0/custom_data_0 = 1
+5:0/0 = 0
+5:0/0/custom_data_0 = 1
+
+[resource]
+tile_size = Vector2i(128, 128)
+custom_data_layer_0/name = "TerrainType"
+custom_data_layer_0/type = 2
+sources/0 = SubResource("TileSetAtlasSource_rhh3x")

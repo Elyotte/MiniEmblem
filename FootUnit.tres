@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="WalkRules" format=3 uid="uid://cn38423oxy4wr"]
+
+[ext_resource type="Script" uid="uid://by4tmkdp176dp" path="res://Scripts/WalkRule.gd" id="1_7edsr"]
+
+[resource]
+script = ExtResource("1_7edsr")
+Normal = true
+metadata/_custom_type_script = "uid://by4tmkdp176dp"

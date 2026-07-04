@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UnitStatsTemplate" format=3 uid="uid://d22xwt23pg0lj"]
+
+[ext_resource type="Script" uid="uid://ba5anma8qojmv" path="res://Scripts/UnitStatsTemplate.gd" id="1_k6y81"]
+[ext_resource type="Resource" uid="uid://cn38423oxy4wr" path="res://FootUnit.tres" id="2_tb0bx"]
+
+[resource]
+script = ExtResource("1_k6y81")
+walkRule = ExtResource("2_tb0bx")
+metadata/_custom_type_script = "uid://ba5anma8qojmv"
