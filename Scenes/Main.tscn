@@ -1,13 +1,14 @@
 [gd_scene format=4 uid="uid://c35nfxwp2m7fp"]
 
-[ext_resource type="Script" uid="uid://b86r8c2snakn7" path="res://Scripts/Core/LevelGrid.gd" id="1_pbw6q"]
 [ext_resource type="TileSet" uid="uid://c06oxybk4bruu" path="res://Tilemap/PlainsBiome.tres" id="1_r150o"]
 [ext_resource type="Shader" uid="uid://dmwtariql34nt" path="res://Scripts/grid_overlay.gdshader" id="1_v1gob"]
-[ext_resource type="Texture2D" uid="uid://f353cc7xy2yq" path="res://icon.svg" id="2_rgh2o"]
-[ext_resource type="Script" uid="uid://3ymhl3avcgcs" path="res://Scripts/EditorTool/UnitRepresentation.gd" id="3_kln2b"]
-[ext_resource type="PackedScene" uid="uid://dhvxf1nsydeuc" path="res://Scenes/unit.tscn" id="4_jw32o"]
-[ext_resource type="Resource" uid="uid://ydfclmhbtvlv" path="res://StatsTemplates/soldier.tres" id="5_pbw6q"]
-[ext_resource type="PackedScene" uid="uid://dhsm2frnoc465" path="res://Scenes/visual_cursor.tscn" id="8_50glp"]
+[ext_resource type="Script" uid="uid://da6l5x6j71d3y" path="res://Scripts/Core/EntitySpawner.gd" id="3_kln2b"]
+[ext_resource type="Script" uid="uid://vv3fwyjpuok0" path="res://Scripts/Core/GridTerrain.gd" id="3_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://dhvxf1nsydeuc" path="res://Scenes/unit.tscn" id="5_v1gob"]
+[ext_resource type="PackedScene" uid="uid://dhsm2frnoc465" path="res://Scenes/visual_cursor.tscn" id="6_jw32o"]
+[ext_resource type="Script" uid="uid://c8tvhaivbjovf" path="res://Scripts/EditorTool/UnitRepresentation.gd" id="7_jw32o"]
+[ext_resource type="Texture2D" uid="uid://f353cc7xy2yq" path="res://icon.svg" id="7_vy5pj"]
+[ext_resource type="Resource" uid="uid://ydfclmhbtvlv" path="res://StatsTemplates/soldier.tres" id="8_50glp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pbw6q"]
 shader = ExtResource("1_v1gob")
@@ -23,11 +24,11 @@ shader_parameter/grid_origin = Vector2(0, 0)
 shader_parameter/line_color = Color(0, 0, 0, 0.70980394)
 shader_parameter/line_thickness = 1.4230000438425
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_kln2b"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_fno36"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_rgh2o")
+"texture": ExtResource("7_vy5pj")
 }],
 "loop": 1,
 "name": &"default",
@@ -41,17 +42,19 @@ material = SubResource("ShaderMaterial_pbw6q")
 material = SubResource("ShaderMaterial_jw32o")
 tile_map_data = PackedByteArray("AAAEAAEAAAAGAAIAAAAFAAEAAAAJAAAAAAADAAIAAAAHAAEAAAADAAEAAAAIAAAAAAACAAEAAAAGAAEAAAABAAIAAAAGAAEAAAACAAIAAAAGAAEAAAAGAAEAAAAGAAEAAAAHAAEAAAAGAAEAAAAHAAMAAAAGAAEAAAAHAAIAAAAGAAEAAAAGAAIAAAAGAAEAAAAGAAMAAAAGAAEAAAAFAAMAAAAJAAEAAAADAAMAAAAIAAEAAAACAAMAAAAGAAEAAAABAAMAAAAGAAEAAAAEAAMAAAAGAAAAAAACAAAAAAAGAAAAAAADAAAAAAAGAAAAAAAEAAAAAAAGAAAAAAAFAAAAAAAGAAAAAAAGAAAAAAAGAAAAAAAHAAAAAAAGAAAAAAAIAAAAAAAHAAAAAAAIAAEAAAAHAAEAAAAIAAIAAAAHAAEAAAAIAAMAAAAHAAEAAAAIAAQAAAAHAAIAAAAAAAQAAAAFAAIAAAAAAAMAAAAFAAEAAAAAAAIAAAAFAAEAAAAAAAEAAAAFAAEAAAABAAQAAAAGAAIAAAACAAQAAAAGAAIAAAADAAQAAAAGAAIAAAAEAAQAAAAGAAIAAAAFAAQAAAAGAAIAAAAGAAQAAAAGAAIAAAAHAAQAAAAGAAIAAAABAAEAAAAGAAEAAAABAAAAAAAGAAAAAAAAAAAAAAAFAAAAAAAFAAIAAAAFAAEAAAA=")
 tile_set = ExtResource("1_r150o")
-script = ExtResource("1_pbw6q")
-_unitPrefab = ExtResource("4_jw32o")
-_cursor = ExtResource("8_50glp")
+script = ExtResource("3_rgh2o")
 
-[node name="Unit_Representation" type="AnimatedSprite2D" parent="." unique_id=1411405398 node_paths=PackedStringArray("grid")]
-modulate = Color(0.40392157, 1, 0, 1)
-position = Vector2(0, 128)
-sprite_frames = SubResource("SpriteFrames_kln2b")
-offset = Vector2(64, 64)
+[node name="Node" type="Node" parent="." unique_id=122537683 node_paths=PackedStringArray("terrain")]
 script = ExtResource("3_kln2b")
-grid = NodePath("../TileMapLayer")
-template = ExtResource("5_pbw6q")
-unitName = "Chrom"
-metadata/_custom_type_script = "uid://3ymhl3avcgcs"
+terrain = NodePath("../TileMapLayer")
+unit_view_scene = ExtResource("5_v1gob")
+cursor_view_scene = ExtResource("6_jw32o")
+
+[node name="UnitRepresentation" type="AnimatedSprite2D" parent="." unique_id=1108766410 node_paths=PackedStringArray("terrain", "spawner")]
+sprite_frames = SubResource("SpriteFrames_fno36")
+offset = Vector2(64, 64)
+script = ExtResource("7_jw32o")
+terrain = NodePath("../TileMapLayer")
+spawner = NodePath("../Node")
+stats_template = ExtResource("8_50glp")
+metadata/_custom_type_script = "uid://c8tvhaivbjovf"

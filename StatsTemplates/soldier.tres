@@ -9,4 +9,12 @@ walk_rules = Dictionary[int, bool]({
 1: true,
 2: false
 })
+stats = Dictionary[int, int]({
+0: 7,
+1: 5,
+2: 5,
+3: 5,
+4: 5,
+5: 5
+})
 metadata/_custom_type_script = "uid://ba5anma8qojmv"

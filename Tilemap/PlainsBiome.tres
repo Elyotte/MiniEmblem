@@ -40,6 +40,6 @@ texture_region_size = Vector2i(128, 128)
 
 [resource]
 tile_size = Vector2i(128, 128)
-custom_data_layer_0/name = "TerrainType"
+custom_data_layer_0/name = "terrain_type"
 custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_rhh3x")

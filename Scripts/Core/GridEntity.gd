@@ -1,25 +1,29 @@
 extends RefCounted
 class_name GridEntity
 
-var m_LevelGrid: LevelGrid
-var coordinate: Vector2i = Vector2i(0, 0)
+## Sentinel meaning "not placed on the grid yet".
+const UNPLACED_COORD := Vector2i(-1, -1)
 
-signal on_set_position
+var coordinate: Vector2i = UNPLACED_COORD
 
-func _init(pGrid : LevelGrid):
-	m_LevelGrid = pGrid
+signal on_position_changed(coord: Vector2i)
+
 
 func snap_to_grid() -> void:
-	if m_LevelGrid == null:
-		push_error("%s: m_LevelGrid is not assigned in the inspector!")
-		return
-	on_set_position.emit([coordinate])
+	on_position_changed.emit(coordinate)
 
-# Base rule: must be in bounds and walkable.
-# Override this in subclasses to add entity-specific rules
-# (e.g. Unit blocks on occupied cells, PlayerCursor doesn't care).
+
+# Template method: bounds checking ALWAYS happens here and subclasses
+# cannot skip it by overriding can_enter directly — they only get to
+# extend the walkability rule via _is_walkable.
 func can_enter(target: Vector2i) -> bool:
-	if m_LevelGrid == null or not m_LevelGrid.is_in_bounds(target):
+	if not GridManager.is_in_bounds(target):
 		return false
-	var cell: CellInfo = m_LevelGrid.get_cell(target)
+	return _is_walkable(GridManager.get_cell(target))
+
+
+# Override in subclasses to add entity-specific rules.
+# Base rule: anything in bounds is walkable (e.g. PlayerCursor doesn't
+# care about terrain or occupation).
+func _is_walkable(_cell: CellInfo) -> bool:
 	return true

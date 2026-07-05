@@ -44,7 +44,7 @@ func _ready() -> void:
 		var y: int = used_rect.position.y + (i / level_width)
 		var coords: Vector2i = Vector2i(x, y)
 		
-		var lCell = CellInfo.new()
+		var lCell : CellInfo = CellInfo.new()
 		
 		var tile_data: TileData = get_cell_tile_data(coords)
 		if tile_data != null:
@@ -73,7 +73,7 @@ func get_cell(coords: Vector2i) -> CellInfo:
 	return allCells[coord_to_index(coords)]
 
 func is_occupied(coords: Vector2i) -> bool:
-	var cell := get_cell(coords)
+	var cell : CellInfo = get_cell(coords)
 	return cell != null and cell.is_occupied()
 
 # The ONLY function allowed to move a unit on the grid.
@@ -82,12 +82,12 @@ func move_unit(unit: Unit, to: Vector2i) -> bool:
 	if not is_in_bounds(to):
 		return false
 	
-	var target_cell := get_cell(to)
+	var target_cell : CellInfo = get_cell(to)
 	if target_cell.is_occupied() or !unit.can_enter(to):
 		return false
 	
 	# Clear the old cell
-	var old_cell := get_cell(unit.coordinate)
+	var old_cell : CellInfo = get_cell(unit.coordinate)
 	if old_cell != null:
 		old_cell.unit = null
 	
@@ -108,8 +108,9 @@ func _instantiateUnit(pUnit : Unit) -> void:
 
 # used when a new unit is created and you want to add it on the grid data
 func place_unit(unit: Unit, at: Vector2i) -> bool:
-	var cell := get_cell(at)
-	if cell == null or cell.is_occupied() and unit.can_enter(at):
+	var cell : CellInfo = get_cell(at)
+	
+	if cell == null or cell.is_occupied() or not unit.can_enter(at):
 		return false
 	
 	cell.unit = unit

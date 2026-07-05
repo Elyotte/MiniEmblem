@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dhsm2frnoc465"]
 
-[ext_resource type="Script" uid="uid://chq4if1v2mikj" path="res://Scripts/view/VisualCursor.gd" id="1_qybsh"]
+[ext_resource type="Script" uid="uid://sjgeicd3wfn2" path="res://Scripts/view/VisualCursor.gd" id="1_qybsh"]
 
 [node name="VisualCursor" type="Node2D" unique_id=468030784]
+z_index = 100
 script = ExtResource("1_qybsh")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=302158873]

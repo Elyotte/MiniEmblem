@@ -1,13 +1,13 @@
 class_name CellInfo
 
-enum Type{
-	Void,
-	Normal,
-	Wall,
+enum Type {
+	VOID,
+	NORMAL,
+	WALL,
 }
 
-var unit : Unit
-var type : Type
+var unit: Unit
+var type: Type = Type.VOID
 
 
 func is_occupied() -> bool:

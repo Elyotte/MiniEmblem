@@ -1,19 +1,16 @@
 extends Node2D
 class_name VisualUnit
 
-var _animatedSprite : AnimatedSprite2D
-var _grid : LevelGrid
+var _unit: Unit
+var _terrain: GridTerrain
 
-var _Unit : Unit
 
-func initialize(pUnit : Unit, pinGrid : LevelGrid):
-	_Unit = pUnit
-	_grid = pinGrid
-	_Unit.on_set_position.connect(_match_position)
+func initialize(unit: Unit, terrain: GridTerrain) -> void:
+	_unit = unit
+	_terrain = terrain
+	_unit.on_position_changed.connect(_match_position)
+	_match_position(_unit.coordinate)
 
-func _match_position(pPos : Vector2i ) -> void:
-	if(_grid == null):
-		push_error("NO GRID SET")
-		return
-	position = _grid.get_world_pos_from_coords(pPos.x, pPos.y)
-	pass
+
+func _match_position(coord: Vector2i) -> void:
+	position = _terrain.get_world_pos_from_coord(coord)
