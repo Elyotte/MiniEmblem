@@ -1,13 +1,28 @@
 [gd_scene format=4 uid="uid://c35nfxwp2m7fp"]
 
-[ext_resource type="Script" uid="uid://b86r8c2snakn7" path="res://Scripts/LevelGrid.gd" id="1_pbw6q"]
+[ext_resource type="Script" uid="uid://b86r8c2snakn7" path="res://Scripts/Core/LevelGrid.gd" id="1_pbw6q"]
 [ext_resource type="TileSet" uid="uid://c06oxybk4bruu" path="res://Tilemap/PlainsBiome.tres" id="1_r150o"]
-[ext_resource type="Script" uid="uid://64uas5cx7hl6" path="res://Scripts/Unit.gd" id="2_idj7w"]
+[ext_resource type="Shader" uid="uid://dmwtariql34nt" path="res://Scripts/grid_overlay.gdshader" id="1_v1gob"]
 [ext_resource type="Texture2D" uid="uid://f353cc7xy2yq" path="res://icon.svg" id="2_rgh2o"]
-[ext_resource type="Resource" uid="uid://d22xwt23pg0lj" path="res://Soldier.tres" id="3_kln2b"]
-[ext_resource type="Script" uid="uid://cjs8ddimxijsj" path="res://Scripts/PlayerCursor.gd" id="6_v1gob"]
+[ext_resource type="Script" uid="uid://3ymhl3avcgcs" path="res://Scripts/EditorTool/UnitRepresentation.gd" id="3_kln2b"]
+[ext_resource type="PackedScene" uid="uid://dhvxf1nsydeuc" path="res://Scenes/unit.tscn" id="4_jw32o"]
+[ext_resource type="Resource" uid="uid://ydfclmhbtvlv" path="res://StatsTemplates/soldier.tres" id="5_pbw6q"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_pbw6q"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pbw6q"]
+shader = ExtResource("1_v1gob")
+shader_parameter/cell_size = Vector2(64, 64)
+shader_parameter/grid_origin = Vector2(0, 0)
+shader_parameter/line_color = Color(1, 1, 1, 0.6)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jw32o"]
+shader = ExtResource("1_v1gob")
+shader_parameter/cell_size = Vector2(128, 128)
+shader_parameter/grid_origin = Vector2(0, 0)
+shader_parameter/line_color = Color(0, 0, 0, 0.70980394)
+shader_parameter/line_thickness = 1.4230000438425
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kln2b"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -19,30 +34,22 @@ animations = [{
 }]
 
 [node name="Main" type="Node2D" unique_id=2035498865]
+material = SubResource("ShaderMaterial_pbw6q")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=443013155]
+material = SubResource("ShaderMaterial_jw32o")
 tile_map_data = PackedByteArray("AAAEAAEAAAAGAAIAAAAFAAEAAAAJAAAAAAADAAIAAAAHAAEAAAADAAEAAAAIAAAAAAACAAEAAAAGAAEAAAABAAIAAAAGAAEAAAACAAIAAAAGAAEAAAAGAAEAAAAGAAEAAAAHAAEAAAAGAAEAAAAHAAMAAAAGAAEAAAAHAAIAAAAGAAEAAAAGAAIAAAAGAAEAAAAGAAMAAAAGAAEAAAAFAAMAAAAJAAEAAAADAAMAAAAIAAEAAAACAAMAAAAGAAEAAAABAAMAAAAGAAEAAAAEAAMAAAAGAAAAAAACAAAAAAAGAAAAAAADAAAAAAAGAAAAAAAEAAAAAAAGAAAAAAAFAAAAAAAGAAAAAAAGAAAAAAAGAAAAAAAHAAAAAAAGAAAAAAAIAAAAAAAHAAAAAAAIAAEAAAAHAAEAAAAIAAIAAAAHAAEAAAAIAAMAAAAHAAEAAAAIAAQAAAAHAAIAAAAAAAQAAAAFAAIAAAAAAAMAAAAFAAEAAAAAAAIAAAAFAAEAAAAAAAEAAAAFAAEAAAABAAQAAAAGAAIAAAACAAQAAAAGAAIAAAADAAQAAAAGAAIAAAAEAAQAAAAGAAIAAAAFAAQAAAAGAAIAAAAGAAQAAAAGAAIAAAAHAAQAAAAGAAIAAAABAAEAAAAGAAEAAAABAAAAAAAGAAAAAAAAAAAAAAAFAAAAAAAFAAIAAAAFAAEAAAA=")
 tile_set = ExtResource("1_r150o")
 script = ExtResource("1_pbw6q")
+_unitPrefab = ExtResource("4_jw32o")
 
-[node name="PlayerCursor" type="Node2D" parent="." unique_id=1049556402 node_paths=PackedStringArray("levelGrid")]
-z_index = 100
-script = ExtResource("6_v1gob")
-levelGrid = NodePath("../TileMapLayer")
-
-[node name="Polygon2D" type="Polygon2D" parent="PlayerCursor" unique_id=1320757938]
-position = Vector2(-63, -62)
-polygon = PackedVector2Array(0, 0, 0, 0, 9, 116, 128, 128, 0, 128)
-
-[node name="Polygon2D2" type="Polygon2D" parent="PlayerCursor" unique_id=1584478306]
-position = Vector2(-63, -62)
-polygon = PackedVector2Array(0, 0, 0, 0, 128, 0, 128, 128, 121, 13)
-
-[node name="Unit" type="Node2D" parent="." unique_id=1782876804 node_paths=PackedStringArray("levelGrid")]
-script = ExtResource("2_idj7w")
-unitTemplate = ExtResource("3_kln2b")
-levelGrid = NodePath("../TileMapLayer")
-metadata/_custom_type_script = "uid://64uas5cx7hl6"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Unit" unique_id=349269820]
-sprite_frames = SubResource("SpriteFrames_pbw6q")
+[node name="Unit_Representation" type="AnimatedSprite2D" parent="." unique_id=1411405398 node_paths=PackedStringArray("grid")]
+modulate = Color(0.40392157, 1, 0, 1)
+position = Vector2(0, 128)
+sprite_frames = SubResource("SpriteFrames_kln2b")
+offset = Vector2(64, 64)
+script = ExtResource("3_kln2b")
+grid = NodePath("../TileMapLayer")
+template = ExtResource("5_pbw6q")
+unitName = "Chrom"
+metadata/_custom_type_script = "uid://3ymhl3avcgcs"

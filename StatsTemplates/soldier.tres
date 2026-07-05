@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UnitStatsTemplate" format=3 uid="uid://ydfclmhbtvlv"]
+
+[ext_resource type="Script" uid="uid://ba5anma8qojmv" path="res://Scripts/Core/UnitStatsTemplate.gd" id="1_sxlbj"]
+
+[resource]
+script = ExtResource("1_sxlbj")
+walk_rules = Dictionary[int, bool]({
+0: false,
+1: true,
+2: false
+})
+metadata/_custom_type_script = "uid://ba5anma8qojmv"

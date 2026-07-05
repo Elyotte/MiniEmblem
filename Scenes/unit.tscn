@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dhvxf1nsydeuc"]
+
+[ext_resource type="Script" uid="uid://bd0gonjy0xnsx" path="res://Scripts/view/VisualUnit.gd" id="1_c86kq"]
+[ext_resource type="Texture2D" uid="uid://f353cc7xy2yq" path="res://icon.svg" id="2_8omp6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fno36"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8omp6")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Unit" type="Node2D" unique_id=487110996]
+script = ExtResource("1_c86kq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1649702229]
+sprite_frames = SubResource("SpriteFrames_fno36")

@@ -6,7 +6,24 @@ var level_height: int
 
 var allCells : Array[CellInfo]
 
+@export var _unitPrefab : PackedScene
+
+static  var instance : LevelGrid
+func _enter_tree() -> void:
+	if instance != null:
+		push_warning("Multiple LevelManager instances detected, overwriting singleton reference.")
+	instance = self
+
+func _exit_tree() -> void:
+	if instance == self:
+		instance = null
+
+func clear_singleton() -> void:
+	if(instance != self):
+		queue_free()
+
 func _ready() -> void:
+	call_deferred("clear_singleton")
 	var used_rect: Rect2i = get_used_rect()
 	
 	# Size in tiles
@@ -67,9 +84,18 @@ func move_unit(unit: Unit, to: Vector2i) -> bool:
 	# Occupy the new cell
 	target_cell.unit = unit
 	unit.coordinate = to
-	unit.global_position = get_pos_on_grid(to.x, to.y)
+	
 	
 	return true
+
+func _instantiateUnit(pUnit : Unit) -> void:
+	var lUnits = _unitPrefab.instantiate() as VisualUnit
+	if(lUnits == null):
+		return
+	add_child(lUnits)
+	lUnits.initialize(pUnit, self)
+	pUnit.on_set_position.emit(pUnit.coordinate)
+	pass
 
 func place_unit(unit: Unit, at: Vector2i) -> bool:
 	var cell := get_cell(at)
@@ -77,10 +103,14 @@ func place_unit(unit: Unit, at: Vector2i) -> bool:
 		return false
 	cell.unit = unit
 	unit.coordinate = at
-	unit.global_position = get_pos_on_grid(at.x, at.y)
+	_instantiateUnit(unit)
 	return true
 
-func get_pos_on_grid(x: int, y: int) -> Vector2:
+func get_grid_coord_from_world(world_pos: Vector2) -> Vector2i:
+	var local_pos: Vector2 = to_local(world_pos)
+	return local_to_map(local_pos)
+
+func get_world_pos_from_coords(x: int, y: int) -> Vector2:
 	var tile_coords: Vector2i = Vector2i(x, y)
 	var local_pos: Vector2 = map_to_local(tile_coords)
 	return to_global(local_pos)

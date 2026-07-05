@@ -10,13 +10,13 @@ signal cursor_moved(coords: Vector2i)
 var selectedUnit : Unit
 
 func _ready() -> void:
-	if levelGrid == null:
-		push_error("PlayerCursor: levelGrid is not assigned in the inspector!")
+	if m_LevelGrid == null:
+		push_error("PlayerCursor: m_LevelGrid is not assigned in the inspector!")
 		return
 	snap_to_grid()
 
 func _process(delta: float) -> void:
-	if levelGrid == null:
+	if m_LevelGrid == null:
 		return
 	handle_movement_input(delta)
 	handle_selection_input()
@@ -52,16 +52,16 @@ func handle_selection_input() -> void:
 	if Input.is_action_just_pressed("selectUnit"):
 		if (selectedUnit == null):
 			cell_selected.emit(coordinate)
-			var lCell : CellInfo = levelGrid.get_cell(coordinate)
+			var lCell : CellInfo = m_LevelGrid.get_cell(coordinate)
 			if (lCell.is_occupied()):
 				print("Unit selected!")
 				selectedUnit = lCell.unit
 				selectedUnit.modulate = Color.BISQUE
-		elif(selectedUnit == levelGrid.get_cell(coordinate).unit):
+		elif(selectedUnit == m_LevelGrid.get_cell(coordinate).unit):
 			selectedUnit.modulate = Color.WHITE	
 			selectedUnit = null
 		else:
-			if(levelGrid.move_unit(selectedUnit, coordinate)):
+			if(m_LevelGrid.move_unit(selectedUnit, coordinate)):
 				selectedUnit.modulate = Color.WHITE	
 				selectedUnit = null
 
