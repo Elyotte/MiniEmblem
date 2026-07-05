@@ -37,8 +37,8 @@ func _ready() -> void:
 	print("Level size (tiles): ", level_width, "x", level_height)
 	
 	allCells.clear()
-	var length = level_width * level_height
-	for i in length:
+	var length : int = level_width * level_height
+	for i :int in length:
 		# Convert flat index to grid coordinates, offset by the used_rect origin
 		var x: int = used_rect.position.x + (i % level_width)
 		var y: int = used_rect.position.y + (i / level_width)
@@ -55,8 +55,8 @@ func _ready() -> void:
 		allCells.insert(i, lCell)
 	
 	# cursor instantiation
-	var lCursor = PlayerCursor.new(self)
-	var lNode = _cursor.instantiate() as VisualCursor
+	var lCursor : PlayerCursor = PlayerCursor.new(self)
+	var lNode : VisualCursor = _cursor.instantiate() as VisualCursor
 	add_child(lNode)
 	lNode.initialize(lCursor)
 	
@@ -98,7 +98,7 @@ func move_unit(unit: Unit, to: Vector2i) -> bool:
 	return true
 
 func _instantiateUnit(pUnit : Unit) -> void:
-	var lUnits = _unitPrefab.instantiate() as VisualUnit
+	var lUnits : VisualUnit = _unitPrefab.instantiate() as VisualUnit
 	if(lUnits == null):
 		return
 	add_child(lUnits)

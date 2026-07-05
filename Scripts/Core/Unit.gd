@@ -17,4 +17,4 @@ func _init(pGrid :LevelGrid, pUnitStatsTemplate : UnitStatsTemplate, pUnitName :
 
 func can_enter(target: Vector2i) -> bool:
 	var lCell : CellInfo = m_LevelGrid.get_cell(target)
-	return _walkRule.find_key(lCell.type) as bool
+	return _walkRule.find_key(lCell.type)
