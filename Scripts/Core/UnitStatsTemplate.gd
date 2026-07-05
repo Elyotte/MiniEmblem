@@ -23,7 +23,7 @@ func get_stats() -> Array[int] :
 	return lStats
 
 func get_walk_rule() -> Dictionary[CellInfo.Type, bool] :
-	return walk_rules
+	return walk_rules.duplicate_deep()
 	
 
 func _init() -> void:

@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://3ymhl3avcgcs" path="res://Scripts/EditorTool/UnitRepresentation.gd" id="3_kln2b"]
 [ext_resource type="PackedScene" uid="uid://dhvxf1nsydeuc" path="res://Scenes/unit.tscn" id="4_jw32o"]
 [ext_resource type="Resource" uid="uid://ydfclmhbtvlv" path="res://StatsTemplates/soldier.tres" id="5_pbw6q"]
-[ext_resource type="PackedScene" uid="uid://dhsm2frnoc465" path="res://Scenes/visual_cursor.tscn" id="8_50glp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pbw6q"]
 shader = ExtResource("1_v1gob")
@@ -43,7 +42,6 @@ tile_map_data = PackedByteArray("AAAEAAEAAAAGAAIAAAAFAAEAAAAJAAAAAAADAAIAAAAHAAE
 tile_set = ExtResource("1_r150o")
 script = ExtResource("1_pbw6q")
 _unitPrefab = ExtResource("4_jw32o")
-_cursor = ExtResource("8_50glp")
 
 [node name="Unit_Representation" type="AnimatedSprite2D" parent="." unique_id=1411405398 node_paths=PackedStringArray("grid")]
 modulate = Color(0.40392157, 1, 0, 1)

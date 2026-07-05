@@ -7,6 +7,7 @@ var level_height: int
 var allCells : Array[CellInfo]
 
 @export var _unitPrefab : PackedScene
+@export var _cursor : PackedScene
 
 static  var instance : LevelGrid
 func _enter_tree() -> void:
@@ -24,6 +25,9 @@ func clear_singleton() -> void:
 
 func _ready() -> void:
 	call_deferred("clear_singleton")
+	if(instance != self):
+		return
+	
 	var used_rect: Rect2i = get_used_rect()
 	
 	# Size in tiles
@@ -50,7 +54,13 @@ func _ready() -> void:
 		
 		allCells.insert(i, lCell)
 	
-# Centralize the index math in one place instead of duplicating it everywhere
+	# cursor instantiation
+	var lCursor = PlayerCursor.new(self)
+	var lNode = _cursor.instantiate() as VisualCursor
+	add_child(lNode)
+	lNode.initialize(lCursor)
+	
+	# Centralize the index math in one place instead of duplicating it everywhere
 func coord_to_index(coords: Vector2i) -> int:
 	return coords.y * level_width + coords.x
 
@@ -84,8 +94,7 @@ func move_unit(unit: Unit, to: Vector2i) -> bool:
 	# Occupy the new cell
 	target_cell.unit = unit
 	unit.coordinate = to
-	
-	
+	unit.on_set_position.emit(to)
 	return true
 
 func _instantiateUnit(pUnit : Unit) -> void:
@@ -97,12 +106,15 @@ func _instantiateUnit(pUnit : Unit) -> void:
 	pUnit.on_set_position.emit(pUnit.coordinate)
 	pass
 
+# used when a new unit is created and you want to add it on the grid data
 func place_unit(unit: Unit, at: Vector2i) -> bool:
 	var cell := get_cell(at)
 	if cell == null or cell.is_occupied() and unit.can_enter(at):
 		return false
+	
 	cell.unit = unit
 	unit.coordinate = at
+	
 	_instantiateUnit(unit)
 	return true
 

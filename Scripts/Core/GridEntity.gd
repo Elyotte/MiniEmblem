@@ -6,6 +6,9 @@ var coordinate: Vector2i = Vector2i(0, 0)
 
 signal on_set_position
 
+func _init(pGrid : LevelGrid):
+	m_LevelGrid = pGrid
+
 func snap_to_grid() -> void:
 	if m_LevelGrid == null:
 		push_error("%s: m_LevelGrid is not assigned in the inspector!")

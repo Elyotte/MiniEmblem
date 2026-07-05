@@ -16,6 +16,6 @@ func _try_snap() -> bool:
 func _ready() -> void:
 	if(_try_snap()):
 		var lCoordinate = grid.get_grid_coord_from_world(position)
-		var lUnit = Unit.new(template, unitName)
+		var lUnit = Unit.new(grid, template, unitName)
 		grid.place_unit(lUnit, lCoordinate)
 		queue_free()
