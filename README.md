@@ -1,2 +1,2 @@
 # MiniEmblem
-A little fire emblem like game made in Godot 4
+A work in progress little fire emblem inspired game made in Godot 4 using GDscript
